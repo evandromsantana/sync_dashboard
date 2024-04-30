@@ -1,0 +1,57 @@
+import React from "react";
+import {
+  Edit,
+  Sort,
+  Page,
+  Resize,
+  Filter,
+  Inject,
+  PdfExport,
+  ContextMenu,
+  ExcelExport,
+  GridComponent,
+  ColumnDirective,
+  ColumnsDirective,
+} from "@syncfusion/ej2-react-grids";
+
+import { ordersData, contextMenuItems, ordersGrid } from "../data/dummy";
+import { Header } from "../components";
+
+const Orders = () => {
+  const editing = { allowDeleting: true, allowEditing: true };
+  return (
+    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+      <Header category="Page" title="Pedidos" />
+      <GridComponent
+        id="gridcomp"
+        allowPaging
+        allowSorting
+        allowPdfExport
+        allowExcelExport
+        editSettings={editing}
+        dataSource={ordersData}
+        contextMenuItems={contextMenuItems}
+      >
+        <ColumnsDirective>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          {ordersGrid.map((item, index) => (
+            <ColumnDirective key={index} {...item} />
+          ))}
+        </ColumnsDirective>
+        <Inject
+          services={[
+            Edit,
+            Page,
+            Sort,
+            Resize,
+            Filter,
+            PdfExport,
+            ExcelExport,
+            ContextMenu,
+          ]}
+        />
+      </GridComponent>
+    </div>
+  );
+};
+export default Orders;
